@@ -28,8 +28,9 @@ int main() {
 
     const unsigned int orange = shade_manager.create_shader_program(frag_path);
     const unsigned int yellow = shade_manager.create_shader_program(frag2_path);
+    const unsigned int orange2 = shade_manager.create_shader_program(frag_path);
 
-    if(orange == 0 || yellow == 0) {
+    if(orange == 0 || yellow == 0 || orange2 == 0) {
         glDeleteProgram(orange);
         glDeleteProgram(yellow);
         shade_manager.cleanup();
@@ -52,17 +53,23 @@ int main() {
         0.45f, 0.5f, 0.0f
     };
 
+    static std::vector<float> vert_3 = {0.0f, -0.5f, 0.0f, 0.4f, -1.0f,
+                                        0.0f, 0.7f, 0.3f, 0.0f, 1.0f, 2.5f, 1.0f, 0.0f, 0.2f};
+
     Model model_1(vert_1, 3);
     Model model_2(vert_2, 3);
+    Model model_3(vert_3, 3);
 
     ModelManager m_manager;
     m_manager.add_model(model_1);
     m_manager.add_model(model_2);
+    m_manager.add_model(model_3);
 
     render.init(m_manager.size());
 
     render.add_model(model_1);
     render.add_model(model_2);
+    render.add_model(model_3);
 
     while (!win.window_should_close()) {
         Window::process_input(win.get_window());
@@ -73,6 +80,7 @@ int main() {
         glUseProgram(orange);
 
         render.render_model(model_1);
+        render.render_model(model_3);
 
         glUseProgram(yellow);
         render.render_model(model_2);
@@ -85,6 +93,7 @@ int main() {
 
     glDeleteProgram(orange);
     glDeleteProgram(yellow);
+    glDeleteProgram(orange2);
 
     render.unload();
 

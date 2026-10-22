@@ -1,19 +1,24 @@
-cmake_minimum_required (VERSION 3.8)
+cmake_minimum_required(VERSION 3.10)
 
+if(NOT DEFINED CMAKE_TOOLCHAIN_FILE AND DEFINED ENV{VCPKG_ROOT})
+    set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+        CACHE FILEPATH "vcpkg toolchain file")
+endif()
 
-project ("cpp-opengl")
+project("cpp-opengl")
 
-add_executable (cpp-opengl "src/cpp-opengl.cpp"
-        src/window/Window.h
-        src/window/Window.cpp
-        src/shader/Shader.cpp
-        src/shader/Shader.h
-        src/render/Renderer.h
-        src/render/Renderer.cpp
-        src/obj/Model.h
-        src/obj/Model.cpp
-        src/obj/ModelManager.cpp
-        src/obj/ModelManager.h
+add_executable(cpp-opengl
+    "src/cpp-opengl.cpp"
+    src/window/Window.h
+    src/window/Window.cpp
+    src/shader/Shader.cpp
+    src/shader/Shader.h
+    src/render/Renderer.h
+    src/render/Renderer.cpp
+    src/obj/Model.h
+    src/obj/Model.cpp
+    src/obj/ModelManager.cpp
+    src/obj/ModelManager.h
 )
 
 find_package(glfw3 CONFIG REQUIRED)
@@ -24,6 +29,5 @@ target_link_libraries(cpp-opengl PRIVATE glfw)
 target_link_libraries(cpp-opengl PRIVATE glm::glm)
 target_link_libraries(cpp-opengl PRIVATE glad::glad)
 
-
-
-file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/shaders" DESTINATION "${CMAKE_CURRENT_BINARY_DIR}")
+file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/shaders"
+     DESTINATION "${CMAKE_CURRENT_BINARY_DIR}")

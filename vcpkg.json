@@ -1,0 +1,10 @@
+{
+  "name": "cpp-opengl",
+  "version-string": "0.1.0",
+  "dependencies": [
+    "glfw3",
+    "glad",
+    "glm"
+  ],
+  "builtin-baseline": "d6eee3dba8766a176e08ee4c741ae0b166ebbfcd"
+}
